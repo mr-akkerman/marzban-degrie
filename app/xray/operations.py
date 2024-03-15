@@ -11,6 +11,7 @@ from app.utils.concurrency import threaded_function
 from app.xray.node import XRayNode
 from xray_api import XRay as XRayAPI
 from xray_api.types.account import Account, XTLSFlows
+from app.utils.telegram_alers import Alerts
 
 if TYPE_CHECKING:
     from app.db import User as DBUser
@@ -180,7 +181,7 @@ def _change_node_status(node_id: int, status: NodeStatus, message: str = None, v
                 return
 
             if dbnode.status == NodeStatus.disabled:
-                remove_node(dbnode.id)
+                # remove_node(dbnode.id)
                 return
 
             crud.update_node_status(db, dbnode, status, message, version)
@@ -228,6 +229,10 @@ def connect_node(node_id, config=None):
     except Exception as e:
         _change_node_status(node_id, NodeStatus.error, message=str(e))
         logger.info(f"Unable to connect to \"{dbnode.name}\" node")
+        try:
+            Alerts().send_message_to_telegram(message=f"⛔️ ⛔️ ⛔️ Не удалось подключиться к ноде {dbnode.name}")
+        except Exception as e:
+            logger.error(f"Не удалось отправить сообщение в телеграм: {e}")
 
     finally:
         try:
@@ -263,6 +268,10 @@ def restart_node(node_id, config=None):
     except Exception as e:
         _change_node_status(node_id, NodeStatus.error, message=str(e))
         logger.info(f"Unable to restart node {node_id}")
+        try:
+            Alerts().send_message_to_telegram(message=f"⛔️ ⛔️ ⛔️ Не удалось перезапустить ноду! {dbnode.name}")
+        except Exception as e:
+            logger.error(f"Не удалось отправить сообщение в телеграм: {e}")
         try:
             node.disconnect()
         except Exception:

@@ -51,7 +51,7 @@ def start_core():
     # nodes' core
     logger.info("Starting nodes Xray core")
     with GetDB() as db:
-        dbnodes = crud.get_nodes(db=db, enabled=True)
+        dbnodes = crud.get_nodes(db=db)  # enabled=True) (Чтобы поднимать все ноды, не только включенные)
         node_ids = [dbnode.id for dbnode in dbnodes]
         for dbnode in dbnodes:
             crud.update_node_status(db, dbnode, NodeStatus.connecting)
