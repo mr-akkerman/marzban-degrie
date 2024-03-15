@@ -1,5 +1,5 @@
 import requests
-from config import TELEGRAM_API_TOKEN, TELEGRAM_LOGGER_CHANNEL_ID
+from config import TELEGRAM_API_TOKEN, TELEGRAM_ERRORS_CHANNEL_ID
 
 
 class Alerts:
@@ -16,7 +16,7 @@ class Alerts:
 
         self._send_msg_base_url = self._send_msg_base_url.format(token=TELEGRAM_API_TOKEN)
         data = {
-            "chat_id": TELEGRAM_LOGGER_CHANNEL_ID,
+            "chat_id": TELEGRAM_ERRORS_CHANNEL_ID,
             "text": message,
             "parse_mode": "html",
         }
