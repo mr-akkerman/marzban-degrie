@@ -26,8 +26,8 @@ def report(admin_id: int, message: str, parse_mode="html", keyboard=None):
             logger.error(e)
 
 
-def report_new_user(user_id: int, username: str, by: str, expire_date: int, data_limit: int, proxies: list, 
-                    data_limit_reset_strategy:UserDataLimitResetStrategy, admin: Admin = None):
+def report_new_user(user_id: int, username: str, by: str, expire_date: int, data_limit: int, proxies: list,
+                    data_limit_reset_strategy: UserDataLimitResetStrategy, admin: Admin = None):
     text = '''\
 🆕 <b>#Created</b>
 ➖➖➖➖➖➖➖➖➖
@@ -59,8 +59,8 @@ def report_new_user(user_id: int, username: str, by: str, expire_date: int, data
     )
 
 
-def report_user_modification(username: str, expire_date: int, data_limit: int, proxies: list, by: str, 
-                             data_limit_reset_strategy:UserDataLimitResetStrategy, admin: Admin = None):
+def report_user_modification(username: str, expire_date: int, data_limit: int, proxies: list, by: str,
+                             data_limit_reset_strategy: UserDataLimitResetStrategy, admin: Admin = None):
     text = '''\
 ✏️ <b>#Modified</b>
 ➖➖➖➖➖➖➖➖➖
@@ -84,11 +84,11 @@ def report_user_modification(username: str, expire_date: int, data_limit: int, p
 
     return report(
         admin_id=admin.telegram_id if admin and admin.telegram_id else None,
-        message=text, 
+        message=text,
         keyboard=BotKeyboard.user_menu({
-        'username': username,
-        'status': 'active'
-    }, with_back=False))
+            'username': username,
+            'status': 'active'
+        }, with_back=False))
 
 
 def report_user_deletion(username: str, by: str, admin: Admin = None):
@@ -107,7 +107,7 @@ def report_user_deletion(username: str, by: str, admin: Admin = None):
     return report(
         admin_id=admin.telegram_id if admin and admin.telegram_id else None,
         message=text
-        )
+    )
 
 
 def report_status_change(username: str, status: str, admin: Admin = None):
@@ -130,7 +130,7 @@ def report_status_change(username: str, status: str, admin: Admin = None):
     return report(
         admin_id=admin.telegram_id if admin and admin.telegram_id else None,
         message=text
-        )
+    )
 
 
 def report_user_usage_reset(username: str, by: str, admin: Admin = None):
@@ -150,7 +150,7 @@ def report_user_usage_reset(username: str, by: str, admin: Admin = None):
     return report(
         admin_id=admin.telegram_id if admin and admin.telegram_id else None,
         message=text
-        )
+    )
 
 
 def report_user_subscription_revoked(username: str, by: str, admin: Admin = None):
@@ -170,4 +170,4 @@ def report_user_subscription_revoked(username: str, by: str, admin: Admin = None
     return report(
         admin_id=admin.telegram_id if admin and admin.telegram_id else None,
         message=text
-        )
+    )

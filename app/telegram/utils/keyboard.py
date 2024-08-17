@@ -31,7 +31,6 @@ class BotKeyboard:
             types.InlineKeyboardButton(text='➕ Create User', callback_data='add_user'))
         return keyboard
 
-
     @staticmethod
     def edit_all_menu():
         keyboard = types.InlineKeyboardMarkup()
@@ -47,7 +46,6 @@ class BotKeyboard:
         keyboard.add(types.InlineKeyboardButton(text='🔙 Back', callback_data='cancel'))
         return keyboard
 
-
     @staticmethod
     def inbounds_menu(action, inbounds):
         keyboard = types.InlineKeyboardMarkup()
@@ -55,7 +53,6 @@ class BotKeyboard:
             keyboard.add(types.InlineKeyboardButton(text=inbound, callback_data=f'confirm_{action}:{inbound}'))
         keyboard.add(types.InlineKeyboardButton(text='🔙 Back', callback_data='cancel'))
         return keyboard
-
 
     @staticmethod
     def templates_menu(templates: Dict[str, int], username: str = None):
@@ -76,19 +73,17 @@ class BotKeyboard:
                 callback_data=f'user:{username}' if username else 'cancel'))
         return keyboard
 
-
     @staticmethod
     def random_username(template_id: str = ''):
         keyboard = types.InlineKeyboardMarkup()
 
         keyboard.add(types.InlineKeyboardButton(
-                text='🔡 Random Username',
-                callback_data=f'random:{template_id}'))
+            text='🔡 Random Username',
+            callback_data=f'random:{template_id}'))
         keyboard.add(types.InlineKeyboardButton(
-                text='🔙 Cancel',
-                callback_data='cancel'))
+            text='🔙 Cancel',
+            callback_data='cancel'))
         return keyboard
-
 
     @staticmethod
     def user_menu(user_info, with_back: bool = True, page: int = 1, note: bool = False):
@@ -163,7 +158,6 @@ class BotKeyboard:
         )
         return keyboard
 
-
     @staticmethod
     def subscription_page(sub_url: str):
         keyboard = types.InlineKeyboardMarkup()
@@ -172,7 +166,6 @@ class BotKeyboard:
                 text='🚀 Subscription Page',
                 url=sub_url))
         return keyboard
-
 
     @staticmethod
     def confirm_action(action: str, username: str = None):
@@ -208,7 +201,6 @@ class BotKeyboard:
             )
         )
         return keyboard
-
 
     @staticmethod
     def inline_cancel_action(callback_data: str = "cancel"):

@@ -5,7 +5,7 @@ from typing import Any, Dict, List
 from fastapi.encoders import jsonable_encoder
 from requests import Session
 
-from config import (WEBHOOK_SECRET, WEBHOOK_ADDRESS, NUMBER_OF_RECURRENT_NOTIFICATIONS, 
+from config import (WEBHOOK_SECRET, WEBHOOK_ADDRESS, NUMBER_OF_RECURRENT_NOTIFICATIONS,
                     RECURRENT_NOTIFICATIONS_TIMEOUT)
 from app import app, logger, scheduler
 from app.db import GetDB
@@ -37,7 +37,7 @@ def send(data: List[Dict[Any, Any]]) -> bool:
         return False
 
 
-def send_req(w_address:str, data):
+def send_req(w_address: str, data):
     try:
         logger.debug(f"Sending {len(data)} webhook updates to {w_address}")
         r = session.post(w_address, json=data, headers=headers)
@@ -73,7 +73,7 @@ def send_notifications():
                 continue
             notification.tries += 1
             notification.send_at = (  # schedule notification for n seconds later
-                dt.utcnow() + td(seconds=RECURRENT_NOTIFICATIONS_TIMEOUT)).timestamp()
+                    dt.utcnow() + td(seconds=RECURRENT_NOTIFICATIONS_TIMEOUT)).timestamp()
             queue.append(notification)
 
 
@@ -88,6 +88,7 @@ if WEBHOOK_ADDRESS:
     def app_shutdown():
         logger.info("Sending pending notifications before shutdown...")
         send_notifications()
+
 
     logger.info("Send webhook job started")
     scheduler.add_job(send_notifications, "interval", seconds=30, replace_existing=True)

@@ -34,8 +34,7 @@ def add_user(new_user: UserCreate,
                 status_code=400, detail=f"Protocol {proxy_type} is disabled on your server")
 
     try:
-        dbuser = crud.create_user(db, new_user,
-                                  admin=crud.get_admin(db, admin.username))
+        dbuser = crud.create_user(db, new_user, admin=crud.get_admin(db, admin.username))
     except sqlalchemy.exc.IntegrityError:
         db.rollback()
         raise HTTPException(status_code=409, detail="User already exists")
